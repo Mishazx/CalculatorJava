@@ -6,7 +6,7 @@ public class Calc {
     Stack<Character> operators = new Stack<>();
 
     public double evaluate(String expression) {
-        char[] tokens = expression.toCharArray();
+        tokens = expression.toCharArray();
         for (int i = 0; i < tokens.length; i++) {
             if (tokens[i] == ' ') {
                 continue;
@@ -24,57 +24,57 @@ public class Calc {
             } else if (tokens[i] == ')') {
                 while (!operators.isEmpty() && operators.peek() != '(') {
                     if (values.size() < 2) {
-                        System.out.println("Error: Insufficient values in expression");
+                        System.out.println("Ошибка: Недостаточно значений в выражении");
                         return Double.NaN;
                     }
                     try {
                         values.push(applyOperation(operators.pop(), values.pop(), values.pop()));
                     } catch (UnsupportedOperationException e) {
-                        System.out.println("Error: " + e.getMessage());
+                        System.out.println("Ошибка: " + e.getMessage());
                         return Double.NaN;
                     }
                 }
                 if (!operators.isEmpty() && operators.peek() == '(') {
                     operators.pop();
                 } else {
-                    System.out.println("Error: Mismatched parentheses");
+                    System.out.println("Ошибка: Неправильно подобранные круглые скобки");
                     return Double.NaN;
                 }
             } else if (isOperator(tokens[i])) {
                 while (!operators.isEmpty() && precedence(tokens[i]) <= precedence(operators.peek())) {
                     if (values.size() < 2) {
-                        System.out.println("Error: Insufficient values in expression");
+                        System.out.println("Ошибка: Недостаточное количество значений в выражении");
                         return Double.NaN;
                     }
                     try {
                         values.push(applyOperation(operators.pop(), values.pop(), values.pop()));
                     } catch (UnsupportedOperationException e) {
-                        System.out.println("Error: " + e.getMessage());
+                        System.out.println("Ошибка: " + e.getMessage());
                         return Double.NaN;
                     }
                 }
                 operators.push(tokens[i]);
             } else {
-                System.out.println("Error: Invalid character in expression");
+                System.out.println("Ошибка: Недопустимый символ в выражении");
                 return Double.NaN;
             }
         }
 
         while (!operators.isEmpty()) {
             if (values.size() < 2) {
-                System.out.println("Error: Insufficient values in expression");
+                System.out.println("Error: Недостаточное количество значений в выражении");
                 return Double.NaN;
             }
             try {
                 values.push(applyOperation(operators.pop(), values.pop(), values.pop()));
             } catch (UnsupportedOperationException e) {
-                System.out.println("Error: " + e.getMessage());
+                System.out.println("Ошибка: " + e.getMessage());
                 return Double.NaN;
             }
         }
 
         if (values.size() != 1) {
-            System.out.println("Error: The expression is invalid");
+            System.out.println("Ошибка: Это неверное выражение");
             return Double.NaN;
         }
 
@@ -95,7 +95,7 @@ public class Calc {
 
     private double applyOperation(char operator, Double b, Double a) {
         if (b == null || a == null) {
-            throw new IllegalArgumentException("Operands cannot be null");
+            throw new IllegalArgumentException("Операнды не могут быть нулевыми");
         }
 
         return switch (operator) {
@@ -103,7 +103,7 @@ public class Calc {
             case '-' -> a - b;
             case '*' -> a * b;
             case '/' -> {
-                if (b == 0 || a == 0) throw new UnsupportedOperationException("Cannot divide by zero");
+                if (b == 0 || a == 0) throw new UnsupportedOperationException("Невозможно разделить на ноль");
                 yield a / b;
             }
             default -> 0;
