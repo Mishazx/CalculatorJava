@@ -81,7 +81,7 @@ public class Calc {
         return values.pop();
     }
 
-    private boolean isOperator(char c) {
+    public static boolean isOperator(char c) {
         return c == '+' || c == '-' || c == '*' || c == '/';
     }
 
