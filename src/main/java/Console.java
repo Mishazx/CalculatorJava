@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class Console {
     String previousResult = "0";
     Scanner scanner = new Scanner(System.in);
+    Calc calculator = new Calc();
 
     public void MainMenu() {
         System.out.println("|------------------------------------------|");
@@ -17,11 +18,10 @@ public class Console {
         if (Objects.equals(start_input, "1")) {
             OneLineInput();
         }
-        if (Objects.equals(start_input,"2")) {
-//            ManyLineInput();
+        else if (Objects.equals(start_input,"2")) {
             System.out.println("Типо старый режим");
         }
-        if (Objects.equals(start_input, "q")) {
+        else if (Objects.equals(start_input, "q")) {
             System.out.println("Выходим из программы");
             System.exit(0);
         }
@@ -30,28 +30,41 @@ public class Console {
         }
     }
 
+    public void MoreLineInput() {
+        System.out.println("Введите первое число для вычисления (или 'q' для выхода):");
+        System.out.println("Введите знак для вычисления");
+        System.out.println("Введите второе число для вычисления");
+    }
+
     public void OneLineInput() {
-        Calc calculator = new Calc();
+
 
         System.out.println("Введите выражение для вычисления (или 'q' для выхода):");
+        System.out.println("Пример ввода `1 + 2 * (10 - 3)`");
+        System.out.println("Второй ввод и последующие подразумевает ввод типо `+ 3 * (12 - 3)`");
 
         while (true) {
             String input = scanner.nextLine();
-
-            String output = calculator.input(handleInput(input));
-
-            handleOutput(output);
+            String input2 = handleInput(input);
+            if (input2 == "out") {
+                System.out.println("Сбросили результат! Результат: " + previousResult);
+            }
+            else {
+                String output = calculator.input(input2);
+                handleOutput(output);
+            }
         }
     }
 
     public String handleInput(String input) {
         if (input.equalsIgnoreCase("q")) {
-            MainMenu();
+            System.out.println("Выходим из программы");
+            System.exit(0);
         }
 
         if (input.equalsIgnoreCase("c")) {
             previousResult = "0";
-            System.out.println("Сбросили результат! Результат: " + previousResult);
+            return "out";
         }
 
         if (previousResult != null && !previousResult.isEmpty()) {
