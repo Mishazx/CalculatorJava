@@ -14,7 +14,7 @@ public class Console {
         System.out.println("| Введите 2 для трехстрочного калькулятора |");
         System.out.println("| Введите q для выхода из программы");
         String start_input = scanner.nextLine();
-        System.out.println(start_input);
+//        System.out.println(start_input);
         if (Objects.equals(start_input, "1")) {
             OneLineInput();
         }

@@ -114,9 +114,9 @@ public class Calc {
         if (input.equalsIgnoreCase("c") || input.equals("c")) {
             return "Сброс калькулятора"; // Код выхода из программы
         }
-        if (input.equalsIgnoreCase("q") || input.equals("q")) {
-            return "123";
-        }
+//        if (input.equalsIgnoreCase("q") || input.equals("q")) {
+//            return "123";
+//        }
         return String.valueOf(evaluate(input));
     }
 }
