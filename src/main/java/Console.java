@@ -19,6 +19,7 @@ public class Console {
             OneLineInput();
         }
         else if (Objects.equals(start_input,"2")) {
+            MoreLineInput();
             System.out.println("Типо старый режим");
         }
         else if (Objects.equals(start_input, "q")) {
@@ -31,14 +32,21 @@ public class Console {
     }
 
     public void MoreLineInput() {
-        System.out.println("Введите первое число для вычисления (или 'q' для выхода):");
-        System.out.println("Введите знак для вычисления");
-        System.out.println("Введите второе число для вычисления");
+        while (true) {
+            System.out.println("Введите первое число для вычисления");
+            String num1 = scanner.next();
+            System.out.println("Введите знак для вычисления: ");
+            char operator = scanner.next().charAt(0);
+            System.out.println("Введите второе число для вычисления: ");
+            String num2 = scanner.next();
+            String input = num1 + operator + num2;
+            System.out.println(input);
+            String output = calculator.input(input);
+            handleOutput(output, input);
+        }
     }
 
     public void OneLineInput() {
-
-
         System.out.println("Введите выражение для вычисления (или 'q' для выхода):");
         System.out.println("Пример ввода `1 + 2 * (10 - 3)`");
         System.out.println("Второй ввод и последующие подразумевает ввод типо `+ 3 * (12 - 3)`");
@@ -46,7 +54,7 @@ public class Console {
         while (true) {
             String input = scanner.nextLine();
             String input2 = handleInput(input);
-            if (input2 == "out") {
+            if (Objects.equals(input2, "out")) {
                 System.out.println("Сбросили результат! Результат: " + previousResult);
             }
             else {
@@ -56,7 +64,7 @@ public class Console {
         }
     }
 
-    public String handleInput(String input) {
+    public String handleInput(String input) { // Функция обработки ввода
         if (input.equalsIgnoreCase("q")) {
             System.out.println("Выходим из программы");
             System.exit(0);
@@ -74,14 +82,24 @@ public class Console {
     }
 
     public void handleOutput(String output) {
+        handleOutput(output, null); // Вызов с null в качестве второго параметра
+    }
+
+    public void handleOutput(String output, String input) { // Функция обработки вывода
         if (Objects.equals(output, "NaN")) {
             previousResult = "0";
             System.out.println("Что-то пошло не так, занулили результат");
         } else {
             previousResult = output;
         }
-
-        System.out.println("Результат: " + previousResult);
+        if (input == null) {
+            System.out.println("Результат: " + output);
+        }
+        else {
+            System.out.println("Посчитали " + input + " = " + output);
+        }
     }
+
+
 }
 
