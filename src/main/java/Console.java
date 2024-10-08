@@ -6,7 +6,7 @@ public class Console {
     Scanner scanner = new Scanner(System.in);
     Calc calculator = new Calc();
 
-    public void MainMenu() {
+    public void mainMenu() {
         System.out.println("|------------------------------------------|");
         System.out.println("|Добро пожаловать в уникальный калькулятор!|");
         System.out.println("|------------------------------------------|");
@@ -16,10 +16,10 @@ public class Console {
         String start_input = scanner.nextLine();
 //        System.out.println(start_input);
         if (Objects.equals(start_input, "1")) {
-            OneLineInput();
+            oneLineInput();
         }
         else if (Objects.equals(start_input,"2")) {
-            MoreLineInput();
+            moreLineInput();
             System.out.println("Типо старый режим");
         }
         else if (Objects.equals(start_input, "q")) {
@@ -31,7 +31,7 @@ public class Console {
         }
     }
 
-    public void MoreLineInput() {
+    public void moreLineInput() {
         while (true) {
             System.out.println("Введите первое число для вычисления");
             String num1 = scanner.next();
@@ -46,7 +46,7 @@ public class Console {
         }
     }
 
-    public void OneLineInput() {
+    public void oneLineInput() {
         System.out.println("Введите выражение для вычисления (или 'q' для выхода):");
         System.out.println("Пример ввода `1 + 2 * (10 - 3)`");
         System.out.println("Второй ввод и последующие подразумевает ввод типо `+ 3 * (12 - 3)`");
@@ -99,7 +99,4 @@ public class Console {
             System.out.println("Посчитали " + input + " = " + output);
         }
     }
-
-
 }
-
